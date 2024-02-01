@@ -15,13 +15,13 @@ class SaleFactory extends Factory
         $unitCost = $this->faker->randomFloat(2, 1, 100);
 
         $cost = $quantity * $unitCost;
-        $price = $cost / (1 - $profitMargin) + config('psyduck.shipping.countries.UK', 0.00);
+        $price = ($cost / (1 - $profitMargin)) + config('psyduck.shipping.countries.UK', 0.00);
 
         return [
             'product_id' => $product->id,
             'quantity' => $quantity,
             'unit_cost' => $unitCost,
-            'sale_price' => $price
+            'sale_price' => $price,
         ];
     }
 }

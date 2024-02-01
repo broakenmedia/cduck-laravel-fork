@@ -20,7 +20,7 @@ class SalesForm extends Component
     public ?string $unitCost = null;
 
     #[Locked]
-    public float $profitMargin;
+    public float $profitMargin = 0.00;
 
     #[Locked]
     public Product $goldProduct;
@@ -45,13 +45,15 @@ class SalesForm extends Component
         if ($this->quantity && $this->unitCost) {
             return Money::GBP($this->calculateSalePrice(), true);
         }
+
         return null;
     }
 
     private function calculateSalePrice(): float
     {
         $cost = $this->quantity * $this->unitCost;
-        $price = $cost / (1 - $this->profitMargin) + config('psyduck.shipping.countries.UK');
+        $price = ($cost / (1 - $this->profitMargin)) + config('psyduck.shipping.countries.UK');
+
         return $price;
     }
 
@@ -64,7 +66,7 @@ class SalesForm extends Component
             'unit_cost' => $validated['unitCost'],
             'sale_price' => Money::GBP($this->calculateSalePrice(), true)->getValue(),
         ]);
-        $this->dispatch('sales-updated');
+        $this->dispatch('sales.updated');
         $this->reset(['quantity', 'unitCost']);
     }
 }

@@ -11,7 +11,7 @@ class ProductSeeder extends Seeder
     {
         Product::create([
             'name' => 'Gold',
-            'profit_margin' => 0.25
+            'profit_margin' => 0.25,
         ]);
     }
 }

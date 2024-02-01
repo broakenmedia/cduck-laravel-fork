@@ -11,11 +11,11 @@ class SalesHistory extends Component
 {
     use WithPagination;
 
-    #[On('sales-updated')]
+    #[On('sales.updated')]
     public function render()
     {
         return view('livewire.sales-history', [
-            'sales' => Sale::paginate(10)
+            'sales' => Sale::paginate(10),
         ]);
     }
 }
