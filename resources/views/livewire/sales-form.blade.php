@@ -2,10 +2,10 @@
     <form wire:submit="save" class="flex flex-row gap-2 flex-wrap">
         <div>
             <!-- Specific error messages would be better, left out for brevity -->
-            <label class="form-label @error('productType') text-red-600 @enderror" for="bean_type">
+            <label class="form-label @error('selectedProductId') text-red-600 @enderror" for="bean_type">
                 Bean Type
             </label>
-            <select id="bean_type" class="form-input pr-8 @error('productType') border-red-600 focus:border-red-600 @else border-gray-200 focus:border-java-bean-700 @enderror" wire:model.live="selectedProductId">
+            <select id="bean_type" class="form-input pr-8 @error('selectedProductId') border-red-600 focus:border-red-600 @else border-gray-200 focus:border-java-bean-700 @enderror" wire:model.live="selectedProductId">
                 @foreach($products as $product)
                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
