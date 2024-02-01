@@ -13,10 +13,10 @@ use Livewire\Component;
 
 class SalesForm extends Component
 {
-    #[Validate('required|numeric')]
-    public ?int $quantity = null;
+    #[Validate('required|numeric|gt:0')]
+    public ?string $quantity = null;
 
-    #[Validate('required|numeric')]
+    #[Validate('required|numeric|gt:0')]
     public ?string $unitCost = null;
 
     #[Locked]
@@ -62,7 +62,7 @@ class SalesForm extends Component
             'product_id' => $this->goldProduct->id,
             'quantity' => $validated['quantity'],
             'unit_cost' => $validated['unitCost'],
-            'sale_price' => $this->calculateSalePrice(),
+            'sale_price' => Money::GBP($this->calculateSalePrice(), true)->getValue(),
         ]);
         $this->dispatch('sales-updated');
         $this->reset(['quantity', 'unitCost']);

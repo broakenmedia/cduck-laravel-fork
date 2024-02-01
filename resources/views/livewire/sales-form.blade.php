@@ -1,22 +1,19 @@
 <div>
     <form wire:submit="save" class="flex flex-row gap-2 flex-wrap">
         <div>
-            <label class="form-label" for="quantity">
+            <!-- Specific error messages would be better, left out for brevity -->
+            <label class="form-label @error('quantity') text-red-600 @enderror" for="quantity">
                 Quantity
-                @error('quantity')
-                <span class="text-xs text-red-600">- Required</span>
-                @enderror
             </label>
-            <input type="number" step="1" id="quantity" class="form-input rounded-lg p-2 text-sm border-gray-200 shadow-sm focus:border-java-bean-700 focus:ring-0" wire:model.live="quantity" />
+            <input type="number" step="1" id="quantity" class="form-input  
+            @error('quantity') border-red-600 focus:border-red-600 @else border-gray-200 focus:border-java-bean-700 @enderror" wire:model.live="quantity" />
         </div>
         <div>
-            <label class="form-label" for="unit_cost">
+            <label class="form-label @error('unitCost') text-red-600 @enderror" for="unit_cost">
                 Unit Cost (£)
-                @error('unitCost')
-                <span class="text-xs text-red-600">- Required</span>
-                @enderror
             </label>
-            <input type="number" step="0.01" id="unit_cost" class="form-input rounded-lg p-2 text-sm border-gray-200 shadow-sm focus:border-java-bean-700 focus:ring-0" wire:model.live="unitCost" />
+            <input type="number" step="0.01" id="unit_cost" class="form-input
+            @error('unitCost') border-red-600 focus:border-red-600 @else border-gray-200 focus:border-java-bean-700 @enderror" wire:model.live="unitCost" />
         </div>
         <div class="flex flex-col">
             <label class="form-label" aria-hidden="true">

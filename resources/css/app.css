@@ -9,4 +9,7 @@
     .form-label {
         @apply block text-sm font-bold mb-2
     }
+    .form-input {
+        @apply rounded-lg p-2 text-sm shadow-sm focus:ring-0
+    }
 }
