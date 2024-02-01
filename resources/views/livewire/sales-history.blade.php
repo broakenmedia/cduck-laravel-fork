@@ -2,6 +2,38 @@
 use Akaunting\Money\Money;
 ?>
 <div>
+    <div class="bg-white overflow-hidden shadow-sm rounded-lg border-b border-gray-200">
+        <div class="flex flex-row justify-between">
+            <div class="font-semibold text-xl text-left px-4 py-2">Filters</div>
+            @if($agent !== null || $productType !== null)
+            <button class="text-java-bean-800 px-4 text-sm font-bold py-2 md:ml-2" wire:click="resetFilters">Reset</button>
+            @endif
+        </div>
+        <div class="border-t px-4 py-3 flex flex-row gap-6 flex-wrap">
+            <div>
+                <label class="form-label mb-1" for="bean_type">
+                    Bean Type
+                </label>
+                <select id="bean_type" class="form-input pr-8" wire:model.change="productType">
+                    <option value="">Select...</option>
+                    @foreach($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="form-label mb-1" for="agent">
+                    Sales Agent
+                </label>
+                <select id="agent" class="form-input pr-8" wire:model.change="agent">
+                    <option value="">Select...</option>
+                    @foreach($agents as $agent)
+                    <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="bg-white overflow-hidden shadow-sm rounded-lg border-b border-gray-200 mt-6">
         <table class="table table-auto w-full">
             <thead>
