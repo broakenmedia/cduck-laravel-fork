@@ -73,6 +73,7 @@ class SalesForm extends Component
             'quantity' => $validated['quantity'],
             'unit_cost' => $validated['unitCost'],
             'sale_price' => Money::GBP($this->calculateSalePrice(), true)->getValue(),
+            'sales_agent_id' => auth()->user()->id,
         ]);
         $this->dispatch('sales.updated');
         $this->reset(['quantity', 'unitCost']);

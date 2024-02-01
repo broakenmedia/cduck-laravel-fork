@@ -23,7 +23,16 @@ use Akaunting\Money\Money;
                     <td class="px-4 py-2">{{ $sale->quantity }}</td>
                     <td class="px-4 py-2">{{ Money::GBP($sale->unit_cost, true) }}</td>
                     <td class="px-4 py-2">{{ Money::GBP($sale->sale_price, true) }}</td>
-                    <td class="px-4 py-2">{{ $sale->created_at }}</td>
+                    <td class="px-4 py-2 flex items-center gap-1">{{ $sale->created_at }}
+                        <div class="group relative flex-row inline-flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#db0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user cursor-pointer w-4 stroke-java-bean-500">
+                                <circle cx="12" cy="12" r="10" />
+                                <circle cx="12" cy="10" r="3" />
+                                <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+                            </svg>
+                            <span class="group-hover:opacity-100 transition-opacity bg-java-bean-800 px-2 py-1 text-xs text-gray-100 rounded-md opacity-0 mx-auto">{{ $sale->agent->name }}</span>
+                        </div>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

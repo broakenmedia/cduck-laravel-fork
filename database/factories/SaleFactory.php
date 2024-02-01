@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SaleFactory extends Factory
@@ -22,6 +23,7 @@ class SaleFactory extends Factory
             'quantity' => $quantity,
             'unit_cost' => $unitCost,
             'sale_price' => $price,
+            'sales_agent_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

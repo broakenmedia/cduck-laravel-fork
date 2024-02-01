@@ -10,7 +10,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'profit_margin' =>  $this->faker->randomFloat(2, 0, 50)
+            'profit_margin' => $this->faker->randomFloat(2, 0, 50),
         ];
     }
 }
