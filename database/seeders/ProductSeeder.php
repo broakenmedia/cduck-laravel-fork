@@ -9,9 +9,15 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        Product::create([
-            'name' => 'Gold',
-            'profit_margin' => 0.25,
+        Product::insert([
+            [
+                'name' => 'Gold',
+                'profit_margin' => 0.25,
+            ],
+            [
+                'name' => 'Arabic',
+                'profit_margin' => 0.15,
+            ],
         ]);
     }
 }

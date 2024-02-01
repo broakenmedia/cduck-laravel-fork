@@ -4,7 +4,7 @@
 
 @layer components {
     .t-head {
-        @apply border-b px-4 py-2 bg-gray-200 text-sm font-bold text-left tracking-wide;
+        @apply border-b px-4 py-2 text-sm font-bold text-left tracking-wide;
     }
     .form-label {
         @apply block text-sm font-bold mb-2
