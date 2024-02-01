@@ -22,7 +22,11 @@ use Akaunting\Money\Money;
                     <td class="px-4 py-2">{{ Money::GBP($sale->sale_price, true) }}</td>
                 </tr>
                 @endforeach
+
             </tbody>
         </table>
+        <div class="px-4 py-2 border-t">
+            {{ $sales->links() }}
+        </div>
     </div>
 </div>

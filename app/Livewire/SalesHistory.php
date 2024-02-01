@@ -2,28 +2,20 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Collection;
+use App\Models\Sale;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SalesHistory extends Component
 {
-    public Collection $sales;
-
-    public function mount()
-    {
-        //TODO - Populate with database collection
-        $this->sales = collect([(object)['quantity' => 1, 'unit_cost' => 10.00, 'sale_price' => 20.33]]);
-    }
-
-    public function render()
-    {
-        return view('livewire.sales-history');
-    }
+    use WithPagination;
 
     #[On('sales-updated')]
-    public function onSalesUpdated()
+    public function render()
     {
-        $this->sales->push((object)['quantity' => 1, 'unit_cost' => 20.00, 'sale_price' => 40.33]);
+        return view('livewire.sales-history', [
+            'sales' => Sale::paginate(10)
+        ]);
     }
 }
