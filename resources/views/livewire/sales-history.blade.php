@@ -49,7 +49,7 @@ use Akaunting\Money\Money;
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 ">
-                @foreach($sales as $sale)
+                @forelse($sales as $sale)
                 <tr class="hover:bg-gray-100">
                     <td class="px-4 py-2">{{ $sale->product->name }}</td>
                     <td class="px-4 py-2">{{ $sale->quantity }}</td>
@@ -66,11 +66,17 @@ use Akaunting\Money\Money;
                         </div>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5" class="px-4 py-2 text-center">No Sales Available</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
+        @if($sales->links()->paginator->hasPages())
         <div class="px-4 py-2 border-t">
             {{ $sales->links() }}
         </div>
+        @endif
     </div>
 </div>
