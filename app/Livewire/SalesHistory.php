@@ -21,14 +21,26 @@ class SalesHistory extends Component
     public function render()
     {
         return view('livewire.sales-history', [
-            'sales' => Sale::when($this->productType !== null, function ($query) {
-                return $query->where('product_id', $this->productType);
-            })->when($this->agent !== null, function ($query) {
-                return $query->where('sales_agent_id', $this->agent);
-            })->paginate(10),
+            'sales' => $this->getFilteredSales(),
             'products' => Product::select(['id', 'name'])->get(),
             'agents' => User::select(['id', 'name'])->get(),
         ]);
+    }
+
+    protected function getFilteredSales()
+    {
+        $query = Sale::query();
+        $filters = [
+            'product_id' => $this->productType,
+            'sales_agent_id' => $this->agent,
+        ];
+        foreach ($filters as $column => $value) {
+            if ($value !== null) {
+                $query->where($column, $value);
+            }
+        }
+
+        return $query->paginate(config('psyduck.default_items_per_page'));
     }
 
     public function resetFilters()

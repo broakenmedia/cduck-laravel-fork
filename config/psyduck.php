@@ -7,4 +7,5 @@ return [
             'UK' => 10.00,
         ],
     ],
+    'default_items_per_page' => 10,
 ];

@@ -41,7 +41,7 @@ class CoffeeSalesHistoryTest extends TestCase
         Sale::factory()->count(15)->create();
 
         Livewire::test(SalesHistory::class)->assertViewHas('sales', function (LengthAwarePaginator $pages) {
-            return $pages->total() === 15 && $pages->count() === 10;
+            return $pages->total() === 15 && $pages->count() === config('psyduck.default_items_per_page');
         });
     }
 
@@ -55,7 +55,7 @@ class CoffeeSalesHistoryTest extends TestCase
         $this->actingAs($user);
 
         Livewire::test(SalesHistory::class)->assertViewHas('sales', function (LengthAwarePaginator $pages) {
-            return $pages->total() === 15 && $pages->count() === 10;
+            return $pages->total() === 15 && $pages->count() === config('psyduck.default_items_per_page');
         });
 
         Livewire::test(SalesForm::class)
@@ -64,7 +64,7 @@ class CoffeeSalesHistoryTest extends TestCase
             ->call('save');
 
         Livewire::test(SalesHistory::class)->assertViewHas('sales', function (LengthAwarePaginator $pages) {
-            return $pages->total() === 16 && $pages->count() === 10;
+            return $pages->total() === 16 && $pages->count() === config('psyduck.default_items_per_page');
         });
     }
 
