@@ -10,6 +10,7 @@ Documentation should be kept in the `docs` folder
 | TESTING                | `docs/02-testing.md`                 |
 | PACKAGES               | `docs/03-packages.md`                |
 | LOCAL DATA             | `docs/04-local-data.md`              |
+| JOE's NOTES            | `docs/05-musings-from-a-joe.md`      |
 
 ----
 
