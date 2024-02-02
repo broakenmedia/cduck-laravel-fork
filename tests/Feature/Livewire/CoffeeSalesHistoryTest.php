@@ -19,6 +19,7 @@ class CoffeeSalesHistoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->actingAs(User::factory()->create());
         Product::create(['name' => 'Gold', 'profit_margin' => 0.25]);
     }
 
@@ -47,7 +48,11 @@ class CoffeeSalesHistoryTest extends TestCase
     /** @test */
     public function updates_rows_after_event()
     {
-        Sale::factory()->count(15)->create();
+
+        $user = User::factory()->create();
+        Sale::factory()->count(15)->create(['sales_agent_id' => $user->id]);
+
+        $this->actingAs($user);
 
         Livewire::test(SalesHistory::class)->assertViewHas('sales', function (LengthAwarePaginator $pages) {
             return $pages->total() === 15 && $pages->count() === 10;
@@ -61,5 +66,26 @@ class CoffeeSalesHistoryTest extends TestCase
         Livewire::test(SalesHistory::class)->assertViewHas('sales', function (LengthAwarePaginator $pages) {
             return $pages->total() === 16 && $pages->count() === 10;
         });
+    }
+
+    /** @test */
+    public function resets_filters_correctly()
+    {
+        User::factory(2)->create();
+        Livewire::test(SalesHistory::class)
+            ->set('productType', 1)
+            ->set('agent', 2)
+            ->call('resetFilters')
+            ->assertSet('productType', null)
+            ->assertSet('agent', null);
+    }
+
+    /** @test */
+    public function shows_empty_message_for_zero_sales()
+    {
+        Livewire::test(SalesHistory::class)
+            ->assertViewHas('sales', function (LengthAwarePaginator $pages) {
+                return $pages->total() === 0;
+            })->assertSee('No Sales Available');
     }
 }

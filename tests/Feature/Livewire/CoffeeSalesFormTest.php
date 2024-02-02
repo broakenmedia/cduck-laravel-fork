@@ -16,6 +16,7 @@ class CoffeeSalesFormTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->actingAs(User::factory()->create());
         Product::create(['name' => 'Gold', 'profit_margin' => 0.25]);
     }
 
