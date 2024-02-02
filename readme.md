@@ -1,5 +1,11 @@
 # Cyber-Duck Laravel task
 
+### Screenshot
+
+![psyduck-ss-a](https://github.com/broakenmedia/psyduck-coffee-shop/assets/1523918/3252f06c-ee3e-40b9-ae4b-5770183ffbc5)
+
+----
+
 Documentation should be kept in the `docs` folder
 
 ## TABLE OF CONTENTS
