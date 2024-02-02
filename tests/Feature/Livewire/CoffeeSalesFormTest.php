@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Livewire;
 
+use Akaunting\Money\Money;
 use App\Livewire\SalesForm;
 use App\Models\Product;
 use App\Models\User;
@@ -38,11 +39,23 @@ class CoffeeSalesFormTest extends TestCase
         Livewire::test(SalesForm::class)
             ->set('quantity', 1)
             ->set('unitCost', 10)
-            ->assertSet('sellingPrice', '£23.33');
+            ->assertSet('sellingPrice', function (Money $sellingPrice) {
+                return $sellingPrice->getValue() === 23.33;
+            });
+
+        Product::create(['name' => 'Arabic', 'profit_margin' => 0.15]);
+
+        Livewire::test(SalesForm::class)
+            ->set('selectedProductId', 2)
+            ->set('quantity', 1)
+            ->set('unitCost', 10)
+            ->assertSet('sellingPrice', function (Money $sellingPrice) {
+                return $sellingPrice->getValue() === 21.76;
+            });
     }
 
     /** @test */
-    public function saves_sale_correctly()
+    public function saves_sales_correctly()
     {
         Livewire::test(SalesForm::class)
             ->set('quantity', 1)
@@ -54,6 +67,21 @@ class CoffeeSalesFormTest extends TestCase
             'quantity' => 1,
             'unit_cost' => 10,
             'sale_price' => 23.33,
+        ]);
+
+        Product::create(['name' => 'Arabic', 'profit_margin' => 0.15]);
+
+        Livewire::test(SalesForm::class)
+            ->set('selectedProductId', 2)
+            ->set('quantity', 1)
+            ->set('unitCost', 10)
+            ->call('save');
+
+        $this->assertDatabaseHas('sales', [
+            'product_id' => 2,
+            'quantity' => 1,
+            'unit_cost' => 10,
+            'sale_price' => 21.76,
         ]);
     }
 
