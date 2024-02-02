@@ -69,7 +69,7 @@ class SalesForm extends Component
     {
         $validated = $this->validate();
         Sale::create([
-            'product_id' => $this->selectedProduct()->id,
+            'product_id' => $validated['selectedProductId'],
             'quantity' => $validated['quantity'],
             'unit_cost' => $validated['unitCost'],
             'sale_price' => Money::GBP($this->calculateSalePrice(), true)->getValue(),
